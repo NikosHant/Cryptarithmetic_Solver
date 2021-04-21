@@ -24,4 +24,5 @@ In the above example, the arguments would be: WON WON TOO 6.
 Source\
 \========================**\
 This code is based on the example offered [here](https://www.tutorialspoint.com/Solving-Cryptarithmetic-Puzzles),
-translated to Java and utilizing data structures and functions offered by Java libraries (ie. HashMap, Math.pow) for quicker/more practical computation.
+translated to Java and utilizing data structures and functions offered by Java libraries (ie. HashMap, Math.pow) for quicker/more practical computation,
+with a few more QoL additions, such as independence to a numerical base.
