@@ -98,7 +98,9 @@ public class CryptoSolver {
             System.out.println("Number of unique letters is bigger than the requested base, unable to find solution!");
             return;
         }
-        backtrack(letterEquiv, args[0], args[1], args[2], 0, givenChars.get(0));
+        if(!backtrack(letterEquiv, args[0], args[1], args[2], 0, givenChars.get(0))){
+            System.out.print("No solutions found!");
+        }
     }
 
 }
