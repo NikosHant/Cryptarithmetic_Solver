@@ -1,4 +1,4 @@
-# Cryptarithmetic_Solver
+# CryptoSolver
 Java code implementing a simple cryptarithmetic solver.
 
 **========================\
