@@ -1,0 +1,104 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
+public class CryptoSolver {
+
+    private static int base;
+    private static int numOfChars;
+    private static Map<Character, Integer> letterEquiv;
+    private static List<Character> givenChars;
+
+    /* Go over the given word, letter by letter, finding each letter's corresponding value from the given dictionary,
+       and calculate the *decimal* value of the entire word, by multiplying each letter's value with the base to the
+       power of the letter's position.
+     */
+    public static int calcValue(Map<Character, Integer> map, String word){
+
+        int length = word.length();
+        int charVal;
+        int value = 0;
+        for(int i = 0; i < length; i++){
+            charVal = map.get(word.charAt(length - 1 - i));
+            value += charVal * Math.pow(base, i);
+        }
+        return value;
+
+    }
+
+    // Check whether the given permutation is correct.
+    public static boolean check(Map<Character, Integer> map, String word1, String word2, String result){
+
+        int v1 = calcValue(map, word1);
+        int v2 = calcValue(map, word2);
+        int v3 = calcValue(map, result);
+
+        return (v1 + v2 == v3);
+
+    }
+
+    public static boolean backtrack(Map<Character, Integer> map, String word1, String word2, String result,
+                                    int coveredChars, char charToPut){
+
+      /* If values have been assigned to all but one letter, try assigning each unassigned value to the last one,
+         checking whether any of them result in a viable permutation. If so, return true and print values.
+         Otherwise, return false.
+      */
+        if(coveredChars == numOfChars - 1) {
+            for (int i = 0; i < base; i++) {
+                if (!map.containsValue(i)) {
+                    map.replace(charToPut, i);
+                    if(check(map, word1, word2, result)) {
+                        System.out.println("Match found! Letter to number correspondence:");
+                        for (Map.Entry<Character, Integer> entry : map.entrySet())
+                            System.out.println(entry.getKey() + " -> " + entry.getValue());
+                        return true;
+                    }
+                }
+            }
+            /* If this is not the final letter to assign a value to, try assigning each value to the given letter,
+               and recursively call this function until a correct permutation is found.
+            */
+        } else {
+            for (int i = 0; i < base; i++) {
+                if (!map.containsValue(i)) {
+                    map.replace(charToPut, i);
+                    if (backtrack(map, word1, word2, result, coveredChars + 1,
+                            givenChars.get(givenChars.lastIndexOf(charToPut) + 1)))
+                        return true;
+                    map.replace(charToPut, -1);
+                }
+            }
+        }
+        map.replace(charToPut, -1);
+        return false;
+    }
+
+    // Fill the Map and Vector objects with unique elements for each letter.
+    public static Map<Character, Integer> fillMap(Map<Character, Integer> map, String word){
+
+        for(char ch : word.toCharArray()) {
+            if(!map.containsKey(ch)) {
+                map.put(ch, -1);
+                givenChars.add(ch);
+            }
+        }
+        return map;
+    }
+
+    public static void main(String[] args) {
+        base = Integer.parseInt(args[3]);
+        letterEquiv = new HashMap<Character, Integer>();
+        givenChars = new Vector<Character>();
+        for(int i = 0; i < 3; i++)
+            letterEquiv = fillMap(letterEquiv, args[i]);
+        numOfChars = letterEquiv.size();
+        if(numOfChars > base){
+            System.out.println("Number of unique letters is bigger than the requested base, unable to find solution!");
+            return;
+        }
+        backtrack(letterEquiv, args[0], args[1], args[2], 0, givenChars.get(0));
+    }
+
+}
