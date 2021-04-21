@@ -1,9 +1,9 @@
 # Cryptarithmetic_Solver
 Java code implementing a simple cryptarithmetic solver.
 
-##========================
-##Example
-##========================
+========================\
+Example\
+\========================
 
 A standard cryptarithmetic riddle would look like this:
   
@@ -15,9 +15,9 @@ A standard cryptarithmetic riddle would look like this:
   
 With the goal being mapping each of the given letters to a number in a given base (eg. base 6).
 
-##========================
-##Command Line Arguments
-##========================
+========================\
+Command Line Arguments\
+\========================
 
 String, String, String, int: The three words that constitute the "equation", followed by the base.
 
