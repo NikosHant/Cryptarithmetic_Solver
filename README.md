@@ -8,8 +8,7 @@ Example\
 A standard cryptarithmetic riddle would look like this:
   
 &emsp;WON  
-\+ WON
-
+\+ WON\
 \----------  
 &emsp; TOO
   
